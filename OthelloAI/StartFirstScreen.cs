@@ -12,17 +12,44 @@ namespace OthelloAI
 {
     public partial class StartFirstScreen : Form
     {
-        public Button[,] b =new Button [8,8];
-        PictureBox BlackRec,BlackPiece,WhiteRec,WhitePiece;
+        //var declaration
+        public Button[,] b = new Button[8, 8];
+        //PictureBox BlackRec,BlackPiece,WhiteRec,WhitePiece;
+        int timeDwn = 121;
+        bool turnBlack = true;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timeDwn--;
+            timeDown.Text=timeDwn.ToString();
+            if (timeDwn == 0) ChangeTurn();
+        }
+
+        private void Exitbtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         public StartFirstScreen()
         {
             InitializeComponent();
         }
 
+        private void Init()
+        {
+            flScoreBoard.Location = new Point(PlayBoard.Location.X + PlayBoard.Width, PlayBoard.Location.Y);
+
+            timer1.Start();
+            b[3, 3].BackColor = Color.Orange;
+            b[4, 4].BackColor = Color.Orange;
+            b[4, 3].BackColor = Color.Green;
+            b[3, 4].BackColor = Color.Green;
+        }
+
         private void StartFirstScreen_Load(object sender, EventArgs e)
         {
-            for (int i=0; i<8; i++)
-                for (int j=0; j<8; j++)
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
                 {
                     b[i, j] = new Button();
 
@@ -33,20 +60,32 @@ namespace OthelloAI
                     b[i, j].Font = new Font(b[i, j].Font.Name, 10, FontStyle.Bold);
                     b[i, j].BackColor = Color.White;
 
-                    PlayBoard.Controls.Add(b[i, j]);
-
                     b[i, j].MouseDown += Btn_Click;
+                    PlayBoard.Controls.Add(b[i, j]);
                 }
-            
+            }
+            Init();
+        }
+
+        private void ChangeTurn()
+        {
+            if (turnBlack) label2.Text = "Turn: White";
+            else label2.Text = "Turn: Black";
+            turnBlack = !turnBlack;
+            timeDwn = 121;
         }
 
         private void Btn_Click(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
             if (btn.BackColor == Color.White)
-                btn.BackColor = Color.Green;
-            else btn.BackColor = Color.White;
+            {
+                if (turnBlack) btn.BackColor = Color.Green;
+                else btn.BackColor = Color.Orange;
+            }
+            else return;
             btn.Image = null;
+            ChangeTurn();
         }
     }
 }
