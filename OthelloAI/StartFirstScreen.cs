@@ -104,10 +104,11 @@ namespace OthelloAI
         private void CheckWin()
         {
             string s = "";
-            if (BlackPiece > WhitePiece) s = "Black";
-            else s = "White";
+            if (BlackPiece > WhitePiece) s = "Black win!!!";
+            else if (WhitePiece > BlackPiece) s = "White win!!!";
+            else s = "Draw!!!";
             timer1.Stop();
-            DialogResult dialog = MessageBox.Show(s + " win!!!", "Notification");
+            DialogResult dialog = MessageBox.Show(s , "Notification");
             this.Close();
         }
 
