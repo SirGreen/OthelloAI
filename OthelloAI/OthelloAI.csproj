@@ -89,10 +89,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="picture\BlackPiece.png" />
-    <Content Include="picture\BlackRec.png" />
-    <Content Include="picture\WhitePiece.png" />
-    <Content Include="picture\WhiteRec.png" />
+    <Content Include="bin\Debug\picture\BlackPiece.png" />
+    <Content Include="bin\Debug\picture\BlackRec.png" />
+    <Content Include="bin\Debug\picture\WhitePiece.png" />
+    <Content Include="bin\Debug\picture\WhiteRec.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
