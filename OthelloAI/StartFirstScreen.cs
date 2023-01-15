@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace OthelloAI
         //PictureBox BlackRec,BlackPiece,WhiteRec,WhitePiece;
         int timeDwn = 121;
         bool turnBlack = true;
+        PictureBox BP = new PictureBox(), BR=new PictureBox(), WP=new PictureBox(), WR = new PictureBox();
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             timeDwn--;
@@ -52,7 +55,7 @@ namespace OthelloAI
                 for (int j = 0; j < 8; j++)
                 {
                     b[i, j] = new Button();
-
+                    b[i,j].BackgroundImageLayout= ImageLayout.Stretch;
                     b[i, j].Name = i.ToString() + "_" + j.ToString();
                     b[i, j].Location = new Point(i * 50, j * 50);
                     b[i, j].Height = 50;
@@ -65,6 +68,10 @@ namespace OthelloAI
                 }
             }
             Init();
+            BP.Image = Image.FromFile(@"picture\BlackPiece.png");
+            BR.Image = Image.FromFile(@"picture\BlackRec.png");
+            WP.Image = Image.FromFile(@"picture\WhitePiece.png");
+            WR.Image = Image.FromFile(@"picture\WhiteRec.png");
         }
 
         private void ChangeTurn()
@@ -80,8 +87,11 @@ namespace OthelloAI
             Button btn = sender as Button;
             if (btn.BackColor == Color.White)
             {
-                if (turnBlack) btn.BackColor = Color.Green;
-                else btn.BackColor = Color.Orange;
+                if (turnBlack)
+                {
+                    btn.BackgroundImage = BP.Image;
+                }
+                else btn.BackgroundImage = WP.Image;
             }
             else return;
             btn.Image = null;
