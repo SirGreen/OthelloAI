@@ -17,7 +17,7 @@ namespace OthelloAI
         public Button[,] b = new Button[8, 8];
         int BlackPiece = 0, WhitePiece = 0;
         int timeDwn = 120;
-        bool turnBlack = true;
+        bool turnBlack = true, Avai=true;
         int[,] Game = new int[8, 8];
         /*0: Nothing
           1: Black
@@ -104,14 +104,11 @@ namespace OthelloAI
         private void CheckWin()
         {
             string s = "";
-            if (BlackPiece + WhitePiece == 64)
-            {
-                if (BlackPiece > WhitePiece) s = "Black";
-                else s = "White";
-                timer1.Stop();
-                DialogResult dialog = MessageBox.Show(s + " win!!!", "Notification");
-                this.Close();
-            }
+            if (BlackPiece > WhitePiece) s = "Black";
+            else s = "White";
+            timer1.Stop();
+            DialogResult dialog = MessageBox.Show(s + " win!!!", "Notification");
+            this.Close();
         }
 
         private void ChangeTurn()
@@ -131,13 +128,14 @@ namespace OthelloAI
             timeDwn = 120;
             lbB.Text = "Black: " + BlackPiece.ToString();
             lbW.Text = "White: " + WhitePiece.ToString();
-            CheckWin();
+            if (BlackPiece + WhitePiece == 64 || !Avai) CheckWin();
         }
 
         private void AvailableMove(int cl)
         {
             BlackPiece = 0;
             WhitePiece = 0;
+            Avai = false;
             for (int i = 0; i < 8; i++) 
             {
                 for (int j = 0; j < 8; j++)
@@ -160,6 +158,7 @@ namespace OthelloAI
                                     {
                                         if (cl == 2) b[x, y].BackgroundImage = WR.Image;
                                         else b[x, y].BackgroundImage = BR.Image;
+                                        Avai = true;
                                     }
                                     break;
                                 }
