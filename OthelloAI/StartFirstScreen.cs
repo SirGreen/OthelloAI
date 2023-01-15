@@ -17,7 +17,7 @@ namespace OthelloAI
         public Button[,] b = new Button[8, 8];
         int BlackPiece = 0, WhitePiece = 0;
         int timeDwn = 120;
-        bool turnBlack = true, Avai=true;
+        bool turnBlack = true, Avai = true;
         int[,] Game = new int[8, 8];
         /*0: Nothing
           1: Black
@@ -27,12 +27,12 @@ namespace OthelloAI
         int[] dy = new int[8] { -1, -1, 0, 1, 1, 1, 0, -1 };
 
 
-        PictureBox BP = new PictureBox(), BR=new PictureBox(), WP=new PictureBox(), WR = new PictureBox();
+        PictureBox BP = new PictureBox(), BR = new PictureBox(), WP = new PictureBox(), WR = new PictureBox();
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             timeDwn--;
-            timeDown.Text=timeDwn.ToString();
+            timeDown.Text = timeDwn.ToString();
             if (timeDwn == 0) ChangeTurn();
         }
 
@@ -69,7 +69,7 @@ namespace OthelloAI
                 {
                     Game[i, j] = 0;
                     b[i, j] = new Button();
-                    b[i,j].BackgroundImageLayout= ImageLayout.Stretch;
+                    b[i, j].BackgroundImageLayout = ImageLayout.Stretch;
                     b[i, j].Name = i.ToString() + "_" + j.ToString();
                     b[i, j].Location = new Point(i * 50, j * 50);
                     b[i, j].Height = 50;
@@ -91,9 +91,9 @@ namespace OthelloAI
 
         private void ResetImg()
         {
-            for (int i = 0; i < 8; i++) 
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++) 
+                for (int j = 0; j < 8; j++)
                 {
                     if (b[i, j].BackgroundImage == BR.Image || b[i, j].BackgroundImage == WR.Image)
                         b[i, j].BackgroundImage = null;
@@ -113,7 +113,7 @@ namespace OthelloAI
 
         private void ChangeTurn()
         {
-            
+
             turnBlack = !turnBlack;
             if (!turnBlack)
             {
@@ -136,19 +136,19 @@ namespace OthelloAI
             BlackPiece = 0;
             WhitePiece = 0;
             Avai = false;
-            for (int i = 0; i < 8; i++) 
+            for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
                     if (Game[i, j] == 1) BlackPiece++;
                     else if (Game[i, j] == 2) WhitePiece++;
-                    if (Game[i,j]==cl)
+                    if (Game[i, j] == cl)
                     {
                         for (int h = 0; h < 8; h++)
                         {
                             int x = i, y = j;
                             bool diffcolor = false;
-                            while (x + dx[h]>-1 && x + dx[h]<8 && y + dy[h]>-1 && y + dy[h]<8)
+                            while (x + dx[h] > -1 && x + dx[h] < 8 && y + dy[h] > -1 && y + dy[h] < 8)
                             {
                                 x = x + dx[h]; y = y + dy[h];
                                 if (Game[x, y] == cl) break;
@@ -194,13 +194,13 @@ namespace OthelloAI
                         break;
                     }
                 }
-                int cnt=qux.Count;
-                while(cnt>0)
+                int cnt = qux.Count;
+                while (cnt > 0)
                 {
                     x = qux.Dequeue();
                     y = quy.Dequeue();
                     if (isFlip)
-                    { 
+                    {
                         Game[x, y] = cl;
                         if (cl == 1) b[x, y].BackgroundImage = BP.Image;
                         else b[x, y].BackgroundImage = WP.Image;
